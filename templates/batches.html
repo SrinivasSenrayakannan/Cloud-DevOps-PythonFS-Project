@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Batches (Production)</h1>
+
+<form method="post" class="form">
+  <label>Product
+    <select name="product_id" required>
+      {% for p in products %}
+        <option value="{{ p.id }}">{{ p.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Batch Date <input type="date" name="batch_date"></label>
+  <label>Quantity (L) <input type="number" step="0.01" name="quantity_liters" required></label>
+  <label>Cost/Liter (₹) <input type="number" step="0.01" name="cost_per_liter" required></label>
+  <button type="submit">Add Batch</button>
+</form>
+
+<table>
+  <thead><tr><th>ID</th><th>Product</th><th>Type</th><th>Date</th><th>Qty (L)</th><th>Cost/L</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r.id }}</td><td>{{ r.product }}</td><td>{{ r.oil_type }}</td>
+      <td>{{ r.batch_date }}</td><td>{{ '%.2f'|format(r.quantity_liters) }}</td><td>₹ {{ '%.2f'|format(r.cost_per_liter) }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

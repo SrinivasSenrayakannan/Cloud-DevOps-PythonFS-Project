@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="grid">
+  <div class="card"><div class="kpi">{{ products_count }}</div><div class="label">Products</div></div>
+  <div class="card"><div class="kpi">{{ '%.2f'|format(total_produced) }} L</div><div class="label">Total Produced</div></div>
+  <div class="card"><div class="kpi">{{ '%.2f'|format(total_sold) }} L</div><div class="label">Total Sold</div></div>
+</div>
+
+<h2>Production by Product</h2>
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Produced (L)</th></tr></thead>
+  <tbody>
+  {% for r in produced_by_product %}
+    <tr>
+      <td>{{ r.id }}</td>
+      <td>{{ r.name }}</td>
+      <td>{{ r.oil_type }}</td>
+      <td>{{ '%.2f'|format(r.produced) }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

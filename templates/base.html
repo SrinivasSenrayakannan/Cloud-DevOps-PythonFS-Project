@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oil Industry App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="{{ url_for('index') }}">Dashboard</a>
+      <a href="{{ url_for('products') }}">Products</a>
+      <a href="{{ url_for('batches') }}">Batches</a>
+      <a href="{{ url_for('sales') }}">Sales</a>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash">
+          {% for category, message in messages %}
+            <div class="flash-item {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">© {{ 2025 }} Oil Industry App</footer>
+  </body>
+</html>
