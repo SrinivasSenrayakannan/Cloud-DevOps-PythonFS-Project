@@ -5,11 +5,17 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # System deps (optional; add build-essential if needed)
-RUN apt-get update && apt-get install -y --no-install-recommends \    ca-certificates \ && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+ && rm -rf /var/lib/apt/lists/*
+
 
 # Copy requirements separately for caching
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache ca-certificates
+
+
 
 # Copy app
 COPY . .
